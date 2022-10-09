@@ -1,0 +1,213 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #81f3c0;
+}
+
+.containe {
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgb(0,0,0,25); /*sombreamanto */
+    overflow: hidden;
+}
+
+    .containe .form {
+        width: 50%;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+        .containe .form .titulo {
+            position: relative;
+            font-size: 35px;
+            font-weight: 600;
+        }
+
+.form .titulo::before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 40px;
+    background-color: #289564;
+    border-radius: 25px;
+}
+
+.form .input-field {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.input-field input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    padding: 0 35px;
+    border-bottom: 3px solid #ccc;
+    border-top: 2px solid transparent;
+    transition: all 0,2s ease;
+}
+
+.input-field i {
+    position: absolute;
+    top: 50%;
+    transform: translateY( -50%);
+    color: #ccc;
+    font-size: 23px;
+    transition: all 0,5s ease;
+}
+
+    .input-field i.icon {
+        left: 0px;
+    }
+
+    .input-field i.pveye {
+        right: 17px;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+.input-field input:is(:focus,:valid) {
+    border-bottom: 3px solid #289564;
+}
+
+    .input-field input:is(:focus,:valid) ~ i {
+        color: #289564;
+    }
+
+form .checkbox-text {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+.checkbox-text .checkbox-containe {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-containe input {
+    accent-color: #289564;
+    margin: 0 8px -2px 4px;
+}
+
+.form a .text {
+    text-decoration: none;
+    color: #333;
+}
+
+.form a:hover {
+    text-decoration: underline;
+}
+
+.form .text {
+    font-size: 12px;
+    color: #333;
+}
+
+.form .button {
+    margin-top: 20px;
+}
+
+    .form .button input {
+        border: none;
+        background-color: rgb(77, 223, 174);
+        font-weight: 500;
+        font-size: 15px;
+        border-radius: 15px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3 ease;
+    }
+
+.button input:hover {
+    background-color: rgb(26, 178, 128);
+}
+
+.form .login-signup {
+    margin-top: 5px;
+    text-align: center;
+}
+
+/* Vamos dididir e formatra os formularios*/
+
+.containe .forms {
+    display: flex;
+    /*align-items: center;*/
+    height: 400px;
+    width: 200%;
+    transition: height 0.01s ease;
+}
+
+.containe .forms2 {
+    display: flex;
+    /*align-items: center;*/
+    height: 550px;
+    width: 200%;
+}
+
+.containe .form {
+    transition: margin-left 0.01s ease;
+}
+
+.active .forms {
+    height: 600px;
+    opacity: 1;
+}
+
+.active .Login {
+    margin-left: -50%;
+    opacity: 0;
+    transition: margin-left 0.01s ease, opacity 0.01s ease;
+}
+
+.containe .imglogo {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: #fff;
+    margin-top: 50px;
+}
+
+.containe {
+    padding-bottom: -100px;
+}
+
+.imglogo .img{
+    width: 50%;
+}
+
+
+/*
+ 
+ .containe .forms{
+     margin-left: -50%; 
+     opacity: 0;
+     transition: opacity 0.01s ease;
+ }
+ .containe .active .signup{
+   
+     opacity: 1;
+     transition: opacity 0.01s ease;
+ }
