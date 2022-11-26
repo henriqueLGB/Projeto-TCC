@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Serviços";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Servicos", "Principal", FormMethod.Post, new{@id="frServicos"})){
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3">
+                            <div class="card" style="width: 18rem;height: 30rem;">
+                                <img class="card-img-top" src="~/img/agendamento.png" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Agendamento</h5>
+                                    <p class="card-text">Poderá agendar sua consulta de forma online ou presencial.</p>
+                                    <p class="card-text">Desenvolveremos seu plano alimentar de forma que atenda sua necessidade.</p>
+                                </div>
+                                <div class="card-body">
+                                    <a href="@Url.Action("Agendamento","Principal")" class="card-link btn btn-info">Agendar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card" style="width: 18rem;height: 30rem;">
+                                <img class="card-img-top" src="~/img/emagercimento.png" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Projeto Dieta em Grupo</h5>
+                                    <p class="card-text">O projeto dieta em grupo é voltado para o emagrecimento. </p>
+                                    <p class="card-text">Relizado em grupo de forma totalmente remota, somente para mulheres.</p>
+                                </div>
+                                <div class="card-body">
+                                    <a href="https://chat.whatsapp.com/HyrvHH1Ao5mATM3KsVrnlK" target="_blank" class="card-link btn btn-info">Acessar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

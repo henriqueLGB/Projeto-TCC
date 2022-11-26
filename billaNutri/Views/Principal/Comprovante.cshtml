@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Comprovante";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Comprovante", "Principal", FormMethod.Post, new { @id = "frComprovante" }))
+{
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nº</th>
+                                        <th>Nome</th>
+                                        <th>Pagamento</th>
+                                        <th>Status</th>
+                                        <th>Valor</th>
+                                        <th>Data</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>432</td>
+                                        <td>Julio Augusto</td>
+                                        <td>Cartão de Crédito</td>
+                                        <td>Pago</td>
+                                        <td>R$ 250,00</td>
+                                        <td>13/11/2022</td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-file"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>894</td>
+                                        <td>Julio Augusto</td>
+                                        <td>Pix</td>
+                                        <td>Pago</td>
+                                        <td>R$ 250,00</td>
+                                        <td>20/11/2022</td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-file"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

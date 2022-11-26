@@ -1,0 +1,178 @@
+﻿@model billaNutri.Models.Principal.DadosAgendamentoVm;
+@{
+    ViewData["Title"] = "Agendamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Agendamento", "Principal", FormMethod.Post, new{@id="frAgendamento"})){
+    <section>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header bg-info">
+                            <i class="fa fa-user"></i> Agendamento
+                        </div>
+                        <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Médico(a):</label>
+                                        <input class="form-control" value="Juliana Paes" readonly />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Especialidade:</label>
+                                        <input class="form-control" value="Nutricionista" readonly />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Data:</label>
+                                        <div class="input-group date">
+                                            <input readonly class="form-control" name="DataAg" id="dataAg" type="text" />
+                                            <div class="input-group-text add-on">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3"> 
+                                        <label>Hora Estipulada:</label>
+                                        <select class="form-control" name="HoraAg" id="horaEstipulada">
+                                            <option value="">Escolha uma opção</option>
+                                            <option value="1">08h ás 08:30h</option>
+                                            <option value="2">08:30h ás 09h</option>
+                                            <option value="3">09h ás 09:30h</option>
+                                            <option value="4">10h ás 10:30h</option>
+                                            <option value="5">10:30h ás 11h</option>
+                                            <option value="6">11h ás 11:30h</option>
+                                            <option value="7">11:30h ás 12h</option>
+                                            <option value="8">13h ás 13:30h</option>
+                                            <option value="9">13:30h ás 14h</option>
+                                            <option value="10">14h ás 14:30h</option>
+                                            <option value="11">14h ás 15h</option>
+                                            <option value="12">15:30h ás 16h</option>
+                                            <option value="13">16h ás 16:30h</option>
+                                            <option value="14">16:30h ás 17h</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Tipo de Pagamento:  &nbsp;</label>
+                                        <input type="radio" value="1" class="radio" id="pix"    name="FormaPgto"> Pix &nbsp;
+                                        <input type="radio" value="2" class="radio" id="cartao" name="FormaPgto"> Cartão  &nbsp;
+                                    </div>
+                                </div>
+
+                                <div id="dadosPIX" class="row" style="display:none;">
+                                    <h5>Dados da Conta</h5>
+                                    <p>Nome: Juliana Paes</p>
+                                    <p>Chave PIX: 61.557.709/0001-87</p>
+                                    <p>Valor da Consulta: R$ 150,00</p>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <button class="btn btn-success" type="button" onclick="Salvar()">
+                                            <i class="fa fa-check"></i> Agendar
+                                        </button>
+                                        <button type="button" id="btnLimpar" class="btn btn-default">
+                                            <i class="fa fa-eraser" type="button" onclick="Limpar()"></i> Limpar
+                                        </button>
+                                    </div>
+                                </div>
+                                <script>
+                                    $(function () {
+                                        $('.date').datepicker({
+                                            format: 'dd/mm/yyyy',
+                                            daysOfWeekDisabled: "0,6",
+                                            language: "pt-BR"
+                                        })
+                                    });
+
+                                    $('#pix').on("change", function () {
+                                        $('#dadosPIX').css("display", "")
+                                    })
+
+                                    $("#cartao").on("change", function () {
+                                        $('#dadosPIX').css("display", "none")
+                                    })
+
+                                    async function Salvar() {
+
+                                        if ($("#dataAg").val() == ''){
+                                            return swal.fire("Atenção !","Você deve escolher uma data válida !","warning")
+                                        }
+
+                                        if ($("#horaEstipulada").val() == '') {
+                                            return swal.fire("Atenção !", "Você deve escolher um horário !", "warning")
+                                        }
+
+                                        let checked = $("input[type=radio]:checked").length;
+
+                                        if(checked == 0){
+                                            return swal.fire("Atenção !", "Você deve escolher um tipo de pagamento !", "warning")
+                                        }
+
+                                        Swal.fire({
+                                            title: 'Atenção !',
+                                            text: "Você deseja confirmar o agendamento ? ",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Sim',
+                                        }).then((result) => {
+
+                                            if (result.isConfirmed) {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "/Principal/Agendamento",
+                                                    data: $("#frAgendamento").serialize(),
+                                                    success: function (obj, textcode, statuscode) {
+
+                                                        if (obj.status == "success") {
+                                                            Swal.fire({
+                                                                title: 'Atenção !',
+                                                                text: obj.message,
+                                                                icon: obj.status,
+                                                                showCancelButton: false
+                                                            }).then((result) => {
+                                                                window.location.href = "/Principal/Cartao?idAg=" + obj.idAg;
+                                                            })
+
+
+                                                        } else {
+                                                            Swal.fire({
+                                                                title: 'Atenção !',
+                                                                text: obj.message,
+                                                                icon: obj.status,
+                                                                showCancelButton: false
+                                                            }).then((result) => {
+
+                                                            })
+                                                        }
+
+                                                    }
+                                                })
+
+                                            }
+                                        })
+                                    }
+
+                                    $('#btnLimpar').on('click',function(){
+                                        $('#dataAg').val('')
+                                        $('#horaEstipulada').val('')
+                                        $('.radio').prop("checked",false)
+                                        $('#dadosPIX').css("display", "none")
+                                    })
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

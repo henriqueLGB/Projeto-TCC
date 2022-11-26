@@ -1,0 +1,271 @@
+﻿@using billaNutri.Models.Banco_de_Dados;
+@model billaNutri.Models.Principal.DadosClienteVm;
+@{
+    ViewData["Title"] = "Main";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Main", "Principal", FormMethod.Post, new{@id="frMain"})){
+  <section>
+      <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-user"></i> Dados
+                        </div>
+                        <div class="card-body">
+                           <div class="col-md-12">
+                               @if(!Model.Clientes.Any())
+                               {
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Nome *:</label>
+                                            <input class="form-control" name="Nome" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label>Sobrenome *:</label>
+                                            <input class="form-control" name="SobreNome" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>CPF *:</label>
+                                            <input class="form-control" name="Cpf" id="cpf" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label>Celular *:</label>
+                                            <input class="form-control" name="Celular" id="celular" />
+                                        </div>
+                                        <hr />
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label>Cep *:</label>
+                                            <input class="form-control" name="Cep" id="cep"  />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Logradouro:</label>
+                                            <input class="form-control" name="Logradouro" id="logradouro"  readonly />
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label>Bairro:</label>
+                                            <input class="form-control" name="Bairro" id="bairro"  readonly />
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label>Cidade:</label>
+                                            <input class="form-control" name="Cidade" id="cidade" readonly />
+                                        </div>
+                                    </div>
+                               }else
+                               {
+                                    @foreach (var item in Model.Clientes)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Nome *:</label>
+                                                <input class="form-control" name="Nome" value="@item.NOME" />
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>Sobrenome *:</label>
+                                                <input class="form-control" name="SobreNome" value="@item.SOBRENOME" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>CPF *:</label>
+                                                <input class="form-control" name="Cpf" id="cpf" value="@item.CPF" />
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>Celular *:</label>
+                                                <input class="form-control" name="Celular" id="celular" value="@item.CELULAR" />
+                                            </div>
+                                            <hr />
+                                        </div>
+
+                                    }
+
+                                    @foreach (var item in Model.Enderecos)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-3 mb-3">
+                                                <label>Cep *:</label>
+                                                <input class="form-control" name="Cep" id="cep" value="@item.CEP" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Logradouro:</label>
+                                                <input class="form-control" name="Logradouro" id="logradouro" value="@item.LOGRADOURO" readonly />
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label>Bairro:</label>
+                                                <input class="form-control" name="Bairro" id="bairro" value="@item.BAIRRO" readonly />
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label>Cidade:</label>
+                                                <input class="form-control" name="Cidade" id="cidade" value="@item.CIDADE" readonly />
+                                            </div>
+                                        </div>
+                                    }
+                               }
+                               <hr/>
+                               <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        @if (!Model.Clientes.Any())
+                                        {
+                                            <button class="btn btn-success" type="button" onclick="Salvar()">
+                                                <i class="fa fa-check"></i> Salvar
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-success" type="button" onclick="Alterar()">
+                                                <i class="fa fa-check"></i> Alterar
+                                            </button>
+                                        }
+                                        <button class="btn btn-default">
+                                            <i class="fa fa-eraser" type="button" onclick="Limpar()"></i> Limpar
+                                        </button>
+                                    </div>
+                               </div>
+
+                            </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+      </div>
+        <script>
+
+            /* INPUT MASK */
+            $('#cep').inputmask("99999-999")
+            $('#celular').inputmask("(99) 99999-9999")
+            $('#cpf').inputmask("999-999.999-99")
+
+            /*FUNCTIONS */
+            async function Salvar() {
+
+                Swal.fire({
+                    title: 'Atenção !',
+                    text: "Você deseja realizar o cadastro dos dados ? ",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Principal/Main",
+                            data: $("#frMain").serialize(),
+                            success: function (obj, textcode, statuscode) {
+                            
+                                if (obj.status == "success") {
+                                    Swal.fire({
+                                        title: 'Atenção !',
+                                        text: obj.message,
+                                        icon: obj.status,
+                                        showCancelButton: false
+                                    }).then((result) => {
+                                        window.location.href = "/Principal/Servicos";
+                                    })
+
+                                
+                                } else {
+                                    Swal.fire({
+                                        title: 'Atenção !',
+                                        text: obj.message,
+                                        icon: obj.status,
+                                        showCancelButton: false
+                                    }).then((result) => {
+                                    
+                                    })
+                                }
+
+                            }
+                        })
+                    }
+                })
+            }
+
+            async function Alterar() {
+
+                Swal.fire({
+                    title: 'Atenção !',
+                    text: "Você deseja realizar o Alterar os dados ? ",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Principal/AlterarDadosCliente",
+                            data: $("#frMain").serialize(),
+                            success: function (obj, textcode, statuscode) {
+
+                                if (obj.status == "success") {
+                                    Swal.fire({
+                                        title: 'Atenção !',
+                                        text: obj.message,
+                                        icon: obj.status,
+                                        showCancelButton: false
+                                    }).then((result) => {
+                                        window.location.href = "/Principal/Servicos";
+                                    })
+
+
+                                } else {
+                                    Swal.fire({
+                                        title: 'Atenção !',
+                                        text: obj.message,
+                                        icon: obj.status,
+                                        showCancelButton: false
+                                    }).then((result) => {
+
+                                    })
+                                }
+
+                            }
+                        })
+                    }
+                })
+            }
+
+            async function Limpar() {
+                $('input').val('')
+            }
+
+            $('#cep').keyup(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Principal/GetEnd",
+                    data: 'numeroCep=' + $(this).val(),
+                    success: function (data, textcode, statuscode) {
+
+                        var obj = JSON.parse(data)
+
+                        if (statuscode.status == 200) {
+                            $('#logradouro').val(obj.logradouro)
+                            $('#bairro').val(obj.bairro)
+                            $('#cidade').val(obj.localidade)
+                        } else {
+                            $('#logradouro').val('')
+                            $('#bairro').val('')
+                            $('#cidade').val('')
+                        }
+
+                    }
+                })
+            })
+
+        </script>
+  </section>
+}

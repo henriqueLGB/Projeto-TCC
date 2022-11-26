@@ -1,57 +1,53 @@
-﻿@{
+﻿@model billaNutri.Models.Home.UsuarioVm;
+@{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-<body>
-    <div class="containe">
-        <!-- conatine inicio -->
-       <div class="imglogo">
-           <img src="~/img/logo.png" class="img"/>
-       </div>
-        <div class="forms">
-            <!-- form inicio -->
-            <div class="form Login">
-                <!-- form Login-->
-                <span class="titulo"> Login</span>
-                <form action="#">
-                    <!-- form -->
-                    <div class="input-field">
-                        <input type="text" placeholder="Enter com o email" required>
-                        <i class="uil uil-envelope icon"></i>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" class="password" placeholder="Enter password" required>
-                        <i class="uil uil-padlock icon"></i>
-                        <i class="uil uil-eye-slash pveye"></i>
-                    </div>
-                    <div class="checkbox-text">
-                        <!-- checkox-->
-                        <div class="checkbox-containe">
-                            <input type="checkbox" name="" id="logCheck">
-                            <label for="logCheck" class="text">Relembre me</label>
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new{@id="frLogin"})){
+    <body>
+        <div class="containe">
+            <!-- conatine inicio -->
+           <div class="imglogo">
+               <img src="~/img/logo.png" class="img"/>
+           </div>
+            <div class="forms">
+                <!-- form inicio -->
+                <div class="form Login">
+                    <!-- form Login-->
+                    <span class="titulo"> Login</span>
+                    <form action="#">
+                        <!-- form -->
+                        <div class="input-field">
+                            <input type="text" name="Email" placeholder="E-mail" required>
+                            <i class="uil uil-envelope icon"></i>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" name="Senha" class="password" placeholder="Senha" required>
+                            <i class="uil uil-padlock icon"></i>
+                            <i class="uil uil-eye-slash pveye"></i>
+                        </div>
+                        <div class="checkbox-text">
+                            <a href="@Url.Action("EsqueceuSenha","Home")" class="text"> Esqueci a senha</a>
+                        </div> <!-- checkox-->
+
+                        <div class="input-field button">
+                            <!--Botão-->
+                            <input type="submit" value="Login">
                         </div>
 
-                        <a href="" class="text"> Forgot password</a>
+                        <div class="login-signup">
+                            <span class="text">
+                                Não e Membro
+                                <a href="@Url.Action("Registrar","Home")" class="text signup-link"> Registrar </a>
+                            </span>
+                        </div>
 
-                    </div> <!-- checkox-->
+                    </form> <!-- form fim -->
+                </div>
+            </div> <!-- form final -->
+        </div> <!-- containe fim -->
 
-                    <div class="input-field button">
-                        <!--Botão-->
-                        <input type="button" value="Login Now">
-                    </div>
-
-                    <div class="login-signup">
-                        <span class="text">
-                            Não e Membro
-                            <a href="@Url.Action("Registrar","Home")" class="text signup-link"> Signup New</a>
-                        </span>
-                    </div>
-
-                </form> <!-- form fim -->
-            </div>
-        </div> <!-- form final -->
-    </div> <!-- containe fim -->
-
-    <script src="JS/js.js"></script>
-</body>
+        <script src="JS/js.js"></script>
+    </body>
+}
 

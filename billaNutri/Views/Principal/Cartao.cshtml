@@ -1,0 +1,176 @@
+﻿@model billaNutri.Models.Principal.DadosCartaoVm;
+@{
+    ViewData["Title"] = "Cartão";
+}
+    <head>
+
+        <!-- custom css file link  -->
+        <link rel="stylesheet" href="~/css/cartaoCss.css">
+
+    </head>
+    <body>
+
+        <div class="conteudo">
+
+            <div class="card-conteudo">
+
+                <div class="front">
+                    <div class="image">
+                        <img src="~/img/chipcard.png" alt="">
+                        <img src="~/img/logo.png" alt="">
+                    </div>
+                    <div class="card-number-box">################</div>
+                    <div class="flexbox">
+                        <div class="box">
+                            <span>NUMERO CARTÃO</span>
+                            <div class="card-holder-name">NOME</div>
+                        </div>
+                        <div class="box">
+                            <span>VALIDADE</span>
+                            <div class="expiration">
+                                <span class="exp-month">mm</span>
+                                <span class="exp-year">yy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="back">
+                    <div class="stripe"></div>
+                    <div class="box">
+                        <span>cvv</span>
+                        <div class="cvv-box"></div>
+                        <img src="~/img/Logocard.jpg" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+            <form action="">
+                <div class="inputBox">
+                    <span>Numero cartão</span>
+                    <input type="text" maxlength="16" class="card-number-input" id="numeroCartao">
+                </div>
+                <div class="inputBox">
+                    <span>Nome</span>
+                    <input type="text" class="card-holder-input" id="nome">
+                </div>
+                <div class="flexbox">
+                    <div class="inputBox">
+                        <span>Mes Vencimento </span>
+                        <select name=""  class="month-input" id="mes">
+                            <option value="month" selected disabled>Mes</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </div>
+                    <div class="inputBox">
+                        <span>Ano Vencimento</span>
+                        <select name="" id="ano" class="year-input">
+                            <option value="year" selected disabled>Ano</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                        </select>
+                    </div>
+                    <div class="inputBox">
+                        <span>CVV</span>
+                        <input type="text" id="cvv" maxlength="4" class="cvv-input">
+                    </div>
+                </div>
+                <input type="button" value="Finalizar" id="salvar" class="submit-btn">
+            </form>
+
+        </div>
+        <!-- custom javaScript file link  -->
+        <script src="~/js/cartaoJs.js"></script>
+
+        <script>
+
+            /*FUNCTIONS */
+            $("#salvar").on("click",function(){
+
+                if($('#numeroCartao').val() == '') {
+                    return Swal.fire("Atenção !","Você deve digitar o Número que está no cartão","warning")
+                }
+
+                if($('#nome').val() == '') {
+                    return Swal.fire("Atenção !", "Você deve digitar o Nome que está no cartão", "warning")
+                }
+
+                if($('#mes').val() == '') {
+                    return Swal.fire("Atenção !", "Você deve digitar o mês que está no cartão", "warning")
+                }
+
+                if ($('#ano').val() == '') {
+                    return Swal.fire("Atenção !", "Você deve digitar o ano que está no cartão", "warning")
+                }
+
+                if ($('#cvv').val() == '') {
+                    return Swal.fire("Atenção !", "Você deve digitar o número do cvv que está no cartão", "warning")
+                }
+
+                Swal.fire({
+                    title: 'Atenção !',
+                    text: "Você deseja finalizar o pagamento ? ",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Principal/Cartao",
+                            data: 'teste=' + 123,
+                            success: function (obj, textcode, statuscode) {
+
+                                if (obj.status == "success") {
+                                    Swal.fire({
+                                        title: 'Atenção !',
+                                        text: obj.message,
+                                        icon: obj.status,
+                                        showCancelButton: false
+                                    }).then((result) => {
+                                        window.location.href = "/Principal/Servicos";
+                                    })
+
+
+                                } else {
+                                    Swal.fire({
+                                        title: 'Atenção !',
+                                        text: obj.message,
+                                        icon: obj.status,
+                                        showCancelButton: false
+                                    }).then((result) => {
+
+                                    })
+                                }
+
+                            }
+                        })
+                    }
+                })
+            })
+
+        </script>
+
+    </body>

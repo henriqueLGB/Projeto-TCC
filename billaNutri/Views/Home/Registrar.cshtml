@@ -1,63 +1,52 @@
-﻿@{
+﻿@model billaNutri.Models.Home.UsuarioVm;
+@{
     ViewData["Title"] = "Registrar";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-
-<body>
-    <div class="containe">
-        <div class="imglogo">
-            <img src="~/img/logo.png" class="img" />
-        </div>
-        <div class="forms2">
-            <!-- Vamos criar outro forma para esquecia minha senha -->
-            <div class="form Signup" style="margin:0px;">
-                <!-- form Login2-->
-                <span class="titulo"> Registrando</span>
-                <form action="#">
-                    <!-- form -->
-                    <div class="input-field">
-                        <input type="text" placeholder="Enter nome" required>
-                        <i class="uil uil-user "></i>
-                    </div>
-                    <div class="input-field">
-                        <input type="text" placeholder="Enter com o email" required>
-                        <i class="uil uil-envelope icon"></i>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" class="password" placeholder="Enter password" required>
-                        <i class="uil uil-padlock icon"></i>
-                        <i class="uil uil-eye-slash pveye"></i>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" class="password" placeholder="Confirme a Senha" required>
-                        <i class="uil uil-padlock icon"></i>
-                        <i class="uil uil-eye-slash pveye"></i>
-                    </div>
-                    <div class="checkbox-text">
-                        <!-- checkox-->
-                        <div class="checkbox-containe">
-                            <input type="checkbox" name="" id="logCheck">
-                            <label for="logCheck" class="text">Relembre me</label>
+@using (Html.BeginForm("Registrar", "Home", FormMethod.Post, new{@id="frRegistrar"})){
+    <body>
+        <div class="containe">
+            <!--<div class="imglogo">
+                <img src="~/img/logo.png" class="img" />
+            </div>-->
+            <div class="forms2">
+                <!-- Vamos criar outro forma para esquecia minha senha -->
+                <div class="form Signup" style="margin:0px;">
+                    <!-- form Login2-->
+                    <span class="titulo"> Registrar</span>
+                    <form action="#">
+                        <!-- form -->
+                        <div class="input-field">
+                            <input type="text" name="Email" id="Email" placeholder="E-mail" required>
+                            <i class="uil uil-envelope icon"></i>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" name="Senha" class="password" placeholder="Senha" required>
+                            <i class="uil uil-padlock icon"></i>
+                            <i class="uil uil-eye-slash pveye"></i>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" name="Senha" class="password" placeholder="Confirme a Senha" required>
+                            <i class="uil uil-padlock icon"></i>
+                            <i class="uil uil-eye-slash pveye"></i>
                         </div>
 
-                        <a href="" class="text"> Forgot password</a>
+                        <div class="input-field button">
+                            <!--Botão-->
+                            <input type="button" onclick="cadastrar()" value="Registrar">
+                        </div>
 
-                    </div> <!-- checkox-->
+                        <div class="login-signup">
+                            <span class="text">
+                                É membro ?
+                                <a href="@Url.Action("Index","home")" class="text login-link"> Login </a>
+                            </span>
+                        </div>
 
-                    <div class="input-field button">
-                        <!--Botão-->
-                        <input type="button" value="Login Now">
-                    </div>
-
-                    <div class="login-signup">
-                        <span class="text">
-                            Não e Membro
-                            <a href="@Url.Action("Index","home")" class="text login-link"> Signup New</a>
-                        </span>
-                    </div>
-
-                </form> <!-- form fim -->
-            </div> <!-- form login2 final-->
+                    </form> <!-- form fim -->
+                </div> <!-- form login2 final-->
+            </div>
         </div>
-    </div>
-</body>
+    </body>
+    <script src="~/js/Home/Registrar.js"></script>
+    }

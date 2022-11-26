@@ -1,0 +1,46 @@
+﻿@model billaNutri.Models.Home.UsuarioVm;
+@{
+    ViewData["Title"] = "EsqueceuSenha";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+@using (Html.BeginForm("EsqueceuSenha", "Home", FormMethod.Post, new { @id = "frEsqueceuSenha" }))
+{
+    <body>
+        <div class="containe">
+            <!-- conatine inicio -->
+            <div class="imglogo">
+                <img src="~/img/logo.png" class="img" />
+            </div>
+            <div class="forms">
+                <!-- form inicio -->
+                <div class="form Login">
+                    <!-- form Login-->
+                    <span class="titulo2"> Esqueceu Senha</span>
+                    <form action="#">
+                        <!-- form -->
+                        <div class="input-field">
+                            <input type="text" name="Email" placeholder="E-mail" required>
+                            <i class="uil uil-envelope icon"></i>
+                        </div>
+
+                        <div class="input-field button">
+                            <!--Botão-->
+                            <input type="submit" value="Enviar">
+                        </div>
+
+                        <div class="login-signup">
+                            <span class="text">
+                                É Membro
+                                <a href="@Url.Action("Index","Home")" class="text signup-link"> Login    </a>
+                            </span>
+                        </div>
+
+                    </form> <!-- form fim -->
+                </div>
+            </div> <!-- form final -->
+        </div> <!-- containe fim -->
+
+        <script src="JS/js.js"></script>
+    </body>
+}
+

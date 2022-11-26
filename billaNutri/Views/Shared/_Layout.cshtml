@@ -1,20 +1,32 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>@ViewData["Title"] - billaNutri</title>
+    <title>@ViewData["Title"] - Santa Elena</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datetimepicker/css/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="~/billaNutri.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-maskMoney/jquery.maskMoney.min.js"></script>
+    <script src="~/lib/jquery-inputMask/dist/jquery.inputmask.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/lib/bootstrap-datetimepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="~/lib/SweetAlert2/package/dist/sweetalert2.all.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </head>
-<body>
+<body id="page-top">
     <header> <!-- ínicio header-->
-        <nav class="navbar navbar-expand-sm navbar-light bg-default"><!-- Ínicio-->
+        <nav class="navbar navbar-expand-sm navbar-light bg-default mb-2" style="background-color:#81f3c0">
+            <!-- Ínicio-->
             <!-- Logo-->
-            <a href="index.html" class="navbar-brand"><!-- Ínicio-->
-                <img src="img/logo.png" width="80">
+            <a href="@Url.Action("Main","Principal")" class="navbar-brand">
+                <!-- Ínicio-->
+                <img src="~/img/logo.png" width="60">
             </a><!-- Fim-->
 
             <!-- Toggle-->
@@ -26,40 +38,32 @@
             <div class="collapse navbar-collapse nav-magin-left" id="nav-principal"><!-- ínicio div-->
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                    <a href="index.html" class="nav-link" >Home</a>
+                        <a href="@Url.Action("Main","Principal")" class="nav-link" active>Dados</a>
                   </li>
                   <li class="nav-item">
-                    <a href="index.html" class="nav-link" >Recursos</a>
+                        <a href="@Url.Action("Servicos","Principal")" class="nav-link">Serviço</a>
                   </li>
                   <li class="nav-item">
-                    <a href="index.html" class="nav-link" >Serviços</a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="index.html" class="nav-link" >Preços</a>
+                        <a href="@Url.Action("Comprovante","Principal")" class="nav-link">Comprovantes</a>
                     </li>
-                    <li class="nav-item">
-                      <a href="chatbox_acesso.html" class="btn btn-outline-dark ml-4" >
-                          Entrar
-                      </a>
-                    </li>
+                  <li class="nav-item">
+                    <a href="https://chat.whatsapp.com/HyrvHH1Ao5mATM3KsVrnlK" target="_blank" class="nav-link" >Ajuda</a>
+                  </li>
                 </ul>
             </div><!-- Fim div-->
         </nav><!--Fim-->
     </header><!-- Fim header-->
-    <div class="container">
-        <main role="main" class="pb-3">
+    <section>
+        <div class="container-fluid">
             @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - billaNutri - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </section>
+    <footer class="sticky-footer mt-3">
+        <div class="container my-auto">
+            <div class="copyright text-center">
+                <span>Copyright &copy; Santa Elena @DateTime.Now.ToString("yyyy")</span>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
