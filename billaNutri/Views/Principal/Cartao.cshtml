@@ -95,7 +95,7 @@
                         <input type="text" id="cvv" maxlength="4" class="cvv-input">
                     </div>
                 </div>
-                <input type="button" value="Finalizar" id="salvar" class="submit-btn">
+            <button type="button" onclick="Salvar(@Model.IdAg)" class="submit-btn">Finalizar</button>
             </form>
 
         </div>
@@ -105,7 +105,7 @@
         <script>
 
             /*FUNCTIONS */
-            $("#salvar").on("click",function(){
+            async function Salvar(idAg){
 
                 if($('#numeroCartao').val() == '') {
                     return Swal.fire("Atenção !","Você deve digitar o Número que está no cartão","warning")
@@ -139,8 +139,8 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "POST",
-                            url: "/Principal/Cartao",
-                            data: 'teste=' + 123,
+                            url: "/Principal/InserirPagementoCartao",
+                            data: 'idAg=' + idAg,
                             success: function (obj, textcode, statuscode) {
 
                                 if (obj.status == "success") {
@@ -169,7 +169,7 @@
                         })
                     }
                 })
-            })
+            }
 
         </script>
 

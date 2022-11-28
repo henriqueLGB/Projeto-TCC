@@ -2,6 +2,7 @@
 using billaNutri.Models.Banco_de_Dados;
 using billaNutri.Models.Home;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.WebEncoders.Testing;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -97,9 +98,9 @@ namespace billaNutri.Controllers
                 return View();
             }
 
-            CriarIdentity(select.IDUSUARIO, select.EMAIL);
+            EfetuarIdentity(select.EMAIL,select.IDUSUARIO);
 
-            var verify = _context.CLIENTE.FirstOrDefault(x => x.ID_USUARIO == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            var verify = _context.CLIENTE.FirstOrDefault(x => x.ID_USUARIO.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (verify != null)
             {
@@ -107,6 +108,11 @@ namespace billaNutri.Controllers
             }
 
             return RedirectToAction("Main", "Principal");
+        }
+
+        private void EfetuarIdentity(string email,int idUsuario)
+        {
+            CriarIdentity(idUsuario, email);
         }
 
         public IActionResult EsqueceuSenha()

@@ -1,10 +1,13 @@
 ﻿using billaNutri.Models.Banco_de_Dados;
 using billaNutri.Models.Principal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.Security.Claims;
 
 namespace billaNutri.Controllers
 {
+    [Authorize]
     public class PrincipalController : ConfigController
     {
         public PrincipalController(Context context) : base(context)
@@ -128,16 +131,10 @@ namespace billaNutri.Controllers
                 _context.AGCLIENTE.Add(ag);
                 _context.SaveChanges();
 
-                if(vm.FormaPgto == 1)
-                {
-                    return Json(new { status = "success", message = "Agendamento realizado com sucesso !"});
-                }
-                else
-                {
-                    return Json(new { status = "success", message = "Você será direcionado para página de pagamento via cartão", idAg = ag.IDAGCLIENTE });
-                }
+                return InserirPagamento(vm,ag.IDAGCLIENTE);
 
-            }catch(Exception e)
+            }
+            catch(Exception e)
             {
                 return Json(new { status = "error", message = "Ocorreu um erro, por gentileza entrar em contato com o suporte!" });
             }
@@ -184,40 +181,69 @@ namespace billaNutri.Controllers
 
             DadosCartaoVm vm = new DadosCartaoVm
             {
-                IdAg = idAg
+                IdAg= idAg
             };
 
             return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Cartao(DadosCartaoVm vm)
+        public JsonResult InserirPagementoCartao(int idAg)
         {
-            return InserirPagamento(vm);
-        }
-
-        private JsonResult InserirPagamento(DadosCartaoVm vm)
-        {
-
             try
             {
-                /*STATUSPAGAMENTO st = new STATUSPAGAMENTO();
-                st.ID_AGCLIENTE = vm.IdAg;
-                st.SATTUSDESQ = 1;
+                var select = _context.AGCLIENTE.FirstOrDefault(x => x.IDAGCLIENTE == idAg);
+
+                STATUSPAGAMENTO st = new STATUSPAGAMENTO();
+                st.ID_AGCLIENTE = idAg;
+                st.SATTUSDESQ = select.FORMAPAGAMENTO;
                 st.COMPROVANTE = "imagem";
                 st.VALOR = 150.00;
 
                 _context.STATUSPAGAMENTO.Add(st);
                 _context.SaveChanges();
-                */
 
                 return Json(new { status = "success", message = "Pagamento realizado com sucesso !" });
 
+            }
+            catch(Exception e) 
+            {
+                return Json(new { status = "error", message = "Ocorreu um erro , por gentileza entrar em contato com o suporte !" });
+            }
+        }
+
+        private JsonResult InserirPagamento(DadosAgendamentoVm vm, int idAgCliente)
+        {
+            try
+            {               
+                if(vm.FormaPgto == 1)
+                {
+                    STATUSPAGAMENTO st = new STATUSPAGAMENTO();
+                    st.ID_AGCLIENTE = idAgCliente;
+                    st.SATTUSDESQ = vm.FormaPgto;
+                    st.COMPROVANTE = "imagem";
+                    st.VALOR = 150.00;
+
+                    _context.STATUSPAGAMENTO.Add(st);
+                    _context.SaveChanges();
+
+                    return Json(new { status = "success", message = "Pagamento realizado com sucesso !" });
+                }
+                else
+                {
+                    return Json(new { status = "success", message = "Você será redirecionado para página de pagamento via cartão de crédito !", idAg = idAgCliente});
+                }
+                
             }catch(Exception e)
             {
                 return Json(new { status = "error", message = "Ocorreu um erro, por gentileza entrar em contato com o suporte ! !" });
             }
 
+        }
+
+        public ActionResult Logoff()
+        { 
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -251,7 +277,10 @@ namespace billaNutri.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            DadosComprovanteVm vm = new DadosComprovanteVm();
+
             return View();
         }
+
     }
 }

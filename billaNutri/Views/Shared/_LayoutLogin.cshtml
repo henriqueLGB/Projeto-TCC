@@ -1,13 +1,24 @@
 ﻿<head>
-    <link rel="stylesheet" href="~/css/EsqueceuSenha.css">
+    <link rel="stylesheet" href="~/css/layoutSite.css">
     <!-- Criando Conta no site  https://iconscout.com/unicons-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
-<body>
-    <div>
-        @RenderBody()
-    </div>
-</body>
+<section>
+    <body>
+        <div>
+            @RenderBody()
+        </div>
+    </body>
+    <footer>
+        <div class="container">
+            <div style="text-align:center;">
+                <span>Copyright &copy; Santa Elena @DateTime.Now.ToString("yyyy")</span>
+            </div>
+        </div>
+    </footer>
+</section>
+
+
 <script src="~/js/Home/login.js"></script>
 <script src="~/lib/SweetAlert2/package/dist/sweetalert2.all.min.js"></script>
 <script src="~/lib/jquery/jquery.js"></script>

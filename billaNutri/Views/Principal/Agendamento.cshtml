@@ -114,6 +114,7 @@
                                             return swal.fire("Atenção !", "Você deve escolher um tipo de pagamento !", "warning")
                                         }
 
+
                                         Swal.fire({
                                             title: 'Atenção !',
                                             text: "Você deseja confirmar o agendamento ? ",
@@ -138,7 +139,12 @@
                                                                 icon: obj.status,
                                                                 showCancelButton: false
                                                             }).then((result) => {
-                                                                window.location.href = "/Principal/Cartao?idAg=" + obj.idAg;
+                                                                if($("#pix:checked").length == 1){
+                                                                    window.location.href = "/Principal/Servicos";
+                                                                }else{
+                                                                    window.location.href = "/Principal/Cartao?idAg=" + obj.idAg;
+                                                                }
+
                                                             })
 
 

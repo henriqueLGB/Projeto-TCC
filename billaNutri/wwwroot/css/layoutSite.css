@@ -212,15 +212,38 @@ form .checkbox-text {
 }
 
 
-/*
- 
- .containe .forms{
-     margin-left: -50%; 
-     opacity: 0;
-     transition: opacity 0.01s ease;
- }
- .containe .active .signup{
-   
-     opacity: 1;
-     transition: opacity 0.01s ease;
- }*/
+@media(max-width: 345px){
+
+    body {
+        max-width: 345px
+    }
+
+    .containe{
+
+        min-width:375px;
+    }
+}
+
+@media(max-width: 525px) {
+
+    body {
+        max-width: 345px
+    }
+
+    .containe {
+        
+        min-width: 375px;
+    }
+}
+
+@media(max-width: 755px) {
+
+    body {
+        max-width: 345px
+    }
+
+    .containe {
+       
+        min-width: 375px;
+    }
+}
